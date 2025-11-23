@@ -8,7 +8,7 @@ df = pd.read_csv('gold.csv', delimiter = ',', index_col = 'Date' ,parse_dates=Tr
 df['China(CNY)'] = df['China(CNY)'].fillna(0)
 
 df['China(CNY)'].plot(figsize = (8,6),
-title = 'Preço anual do ouro por ano',
+title = 'Preço mensal do ouro',
 xlabel = "Ano", 
 ylabel = "Preço",
 x_compat = True
@@ -19,4 +19,5 @@ decomposition = seasonal_decompose(df['China(CNY)'], model = 'additive', period 
 
 decomposition.plot()
 plt.tight_layout()
+
 plt.show()
