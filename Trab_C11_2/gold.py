@@ -51,3 +51,29 @@ predictions2 = pd.Series(arima_values, index = pred_index)
 df['China(CNY)']['31-01-2000':].plot(figsize=(8,6))
 predictions2.plot()
 plt.show()
+
+def MAPE(y_true, y_pred):
+    mask = y_true != 0
+    y_true, y_pred = y_true[mask], y_pred[mask]
+    return np.mean(np.abs((y_true - y_pred) / y_true)) * 100
+
+#Mape Holf Winters
+hw_fitted = model.fittedvalues
+
+real_hw = df['China(CNY)'].loc[hw_fitted.index]
+
+mape_hw = MAPE(real_hw, hw_fitted)
+
+print("MAPE Holt-Winters:", mape_hw)
+
+#Mape Arima
+
+arima_fitted = model2.predict_in_sample()
+
+arima_fitted = pd.Series(arima_fitted, index=df.index)
+
+real_arima = df['China(CNY)']
+
+mape_arima = MAPE(real_arima, arima_fitted)
+
+print("MAPE ARIMA:", mape_arima)
