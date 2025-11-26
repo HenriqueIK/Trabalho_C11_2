@@ -12,7 +12,7 @@ df['China(CNY)'] = df['China(CNY)'].fillna(0)
 df['China(CNY)'].plot(figsize = (8,6),
 title = 'Preço de compra mensal do ouro na China',
 xlabel = "Ano", 
-ylabel = "Preço",
+ylabel = "Preço (Yuan)",
 x_compat = True
 )
 plt.show()
@@ -28,7 +28,9 @@ model = ExponentialSmoothing(endog = df['China(CNY)'], trend = 'add', seasonal =
 #prevendo 10 anos (120 meses)
 predictions = model.forecast(steps=120)
 
-df['China(CNY)']['31-01-2000':].plot(figsize=(8,6))
+df['China(CNY)']['31-01-2000':].plot(figsize=(8,6), title = 'Preço de compra mensal do ouro na China',
+xlabel = "Ano", 
+ylabel = "Preço (Yuan)")
 
 predictions.plot()
 plt.show()
@@ -48,7 +50,10 @@ arima_values = model2.predict(n_periods = 120)
 
 predictions2 = pd.Series(arima_values, index = pred_index)
 
-df['China(CNY)']['31-01-2000':].plot(figsize=(8,6))
+df['China(CNY)']['31-01-2000':].plot(figsize=(8,6), title = 'Preço de compra mensal do ouro na China',
+xlabel = "Ano", 
+ylabel = "Preço (Yuan)")
+
 predictions2.plot()
 plt.show()
 
